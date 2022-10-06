@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block header %}
+    <a href="/">Home</a>
+    <a href="/voorspellingen">Voorspellingen</a>
+    <a href="/stand">Stand</a>
+    <a href="/volgende">Volgende</a>
+    <a href="/login">Log in</a>
+{% endblock %}
+
+{% block main %}
+    <p><b>REAL SCORES</b></p>
+    <table>
+        <tr class="enterscores" >
+            <th>#</th>
+            <th>Team 1</th>
+            <th>RSCORE</th>
+            <th>Score</th>
+            <th>-</th>
+            <th>Score</th>
+            <th>RSCORE</th>
+            <th>Team 2</th>
+            <th></th>
+        </tr>
+        {% for row in query %}
+        <tr>
+            <form action="/realscoresenter" method="post">
+            <td>
+                <input class="constant" id="matchid" name="matchid" type="text" size="1" style="text-align:center;" value="{{ (row['match_id'] % 48) }}">
+            </td>
+            <td>{{ row["team1"] }}</td>
+            <td>{{ row["realscore1"] }}</td>
+            <td>
+                <input autocomplete="off" id="realscore1" name="realscore1" type="text" size="1" style="text-align:center;">
+            </td>
+            <td>-</td>
+            <td><input autocomplete="off" id="realscore2" name="realscore2" type="text" size="1" style="text-align:center;"></td>
+            <td>{{ row["realscore2"] }}</td>
+            <td>{{ row["team2"] }}</td>
+            <td>
+                <button class="button4" type="submit"> Edit </button>
+            </td>
+            </form>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

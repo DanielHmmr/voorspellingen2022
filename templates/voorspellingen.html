@@ -1,0 +1,236 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block header %}
+    <a href="/">Home</a>
+    <a class="active" href="/voorspellingen">Voorspellingen</a>
+    <a href="/stand">Stand</a>
+    <a href="/volgende">Volgende</a>
+    <a href="/login">Log in</a>
+{% endblock %}
+
+{% block main %}
+    <p><b>Matches</b></p>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Team 1</th>
+            <th>Score</th>
+            <th>-</th>
+            <th>Score</th>
+            <th>Team 2</th>
+            <th></th>
+        </tr>
+        {% for row in query %}
+        <tr>
+            <form action="/voorspellingen" method="post">
+            <td>
+                {% if (row['match_id'] % 48) == 0 %}
+                <input class="constant" id="matchid" name="matchid" type="text" size="1" style="text-align:center;" value="48">
+                {% else %}
+                <input class="constant" id="matchid" name="matchid" type="text" size="1" style="text-align:center;" value="{{ (row['match_id'] % 48) }}">
+                {% endif %}
+            </td>
+            <td>{{ row["team1"] }}</td>
+            <td>
+                <input autocomplete="off" id="score1" name="score1" type="text" size="1" style="text-align:center;">
+            </td>
+            <td>-</td>
+            <td><input autocomplete="off" id="score2" name="score2" type="text" size="1" style="text-align:center;"></td>
+            <td>{{ row["team2"] }}</td>
+            <td>
+                <button class="button2" type="submit"> Edit </button>
+            </td>
+            </form>
+        </tr>
+        {% endfor %}
+    </table>
+    <form action="/voorspellingen" method="post">
+        <select name="teams" id="teams">
+            <option value="none" selected="selected" disabled>Wie wint het WK?</option>
+            <option value="qatar">Qatar</option>
+            <option value="netherlands">Netherlands</option>
+            <option value="senegal">Senegal</option>
+            <option value="ecuador">Ecuador</option>
+            <option value="england">England</option>
+            <option value="usa">USA</option>
+            <option value="wales">Wales</option>
+            <option value="iran">Iran</option>
+            <option value="argentina">Argentina</option>
+            <option value="poland">Poland</option>
+            <option value="mexico">Mexico</option>
+            <option value="saudiarabia">Saudi Arabia</option>
+            <option value="france">France</option>
+            <option value="germany">Germany</option>
+            <option value="spain">Spain</option>
+            <option value="japan">Japan</option>
+            <option value="costarica">Costa Rica</option>
+            <option value="belgium">Belgium</option>
+            <option value="croatia">Croatia</option>
+            <option value="canada">Canada</option>
+            <option value="morocco">Morocco</option>
+            <option value="brazil">Brazil</option>
+            <option value="switzerland">Switzerland</option>
+            <option value="serbia">Serbia</option>
+            <option value="cameroon">Cameroon</option>
+            <option value="portugal">Portugal</option>
+            <option value="uruguay">Uruguay</option>
+            <option value="ghana">Ghana</option>
+            <option value="southkorea">Korea Republic</option>
+        </select>
+        <input class="button3" type="submit" value="Indienen">
+    </form>
+    <br>
+    <form action="/voorspellingen" method="post">
+        <select name="fase" id="fase">
+            <option value="none" selected="selected" disabled>Waar eindigt Nederland?</option>
+            <option value="group">Groepsfase</option>
+            <option value="ro16">Achtste finales</option>
+            <option value="quarters">Kwartfinales</option>
+            <option value="semis">Halve finale</option>
+            <option value="final">Verliezend finalist</option>
+            <option value="winner">Winnaar</option>
+        </select>
+        <input class="button3" type="submit" value="Indienen">
+    </form>
+    <br>
+    <form action="/voorspellingen" method="post">
+        <select name="topscorer" id="topscorer">
+            <option value="none" selected="selected" disabled>Wie wordt de topscorer?</option>
+            <option id='Harry Kane'>Harry Kane</option>
+            <option id='Kylian Mbappe'>Kylian Mbappe</option>
+            <option id='Karim Benzema'>Karim Benzema</option>
+            <option id='Neymar'>Neymar</option>
+            <option id='Lionel Messi'>Lionel Messi</option>
+            <option id='Cristiano Ronaldo'>Cristiano Ronaldo</option>
+            <option id='Romelu Lukaku'>Romelu Lukaku</option>
+            <option id='Memphis Depay'>Memphis Depay</option>
+            <option id='Lautaro Martinez'>Lautaro Martinez</option>
+            <option id='Vinicius Junior'>Vinicius Junior</option>
+            <option id='Diogo Jota'>Diogo Jota</option>
+            <option id='Richarlison'>Richarlison</option>
+            <option id='Gabriel Jesus'>Gabriel Jesus</option>
+            <option id='Raheem Sterling'>Raheem Sterling</option>
+            <option id='Antoine Griezmann'>Antoine Griezmann</option>
+            <option id='Kai Havertz'>Kai Havertz</option>
+            <option id='Alvaro Morata'>Alvaro Morata</option>
+            <option id='Sequeira Joao Felix'>Sequeira Joao Felix</option>
+            <option id='Pablo Sarabia'>Pablo Sarabia</option>
+            <option id='Robert Lewandowski'>Robert Lewandowski</option>
+            <option id='Ferran Torres'>Ferran Torres</option>
+            <option id='Raphinha'>Raphinha</option>
+            <option id='Timo Werner'>Timo Werner</option>
+            <option id='Serge Gnabry'>Serge Gnabry</option>
+            <option id='Phil Foden'>Phil Foden</option>
+            <option id='Karim Adeyemi'>Karim Adeyemi</option>
+            <option id='Luis Suarez'>Luis Suarez</option>
+            <option id='Dusan Vlahovic'>Dusan Vlahovic</option>
+            <option id='Steven Bergwijn'>Steven Bergwijn</option>
+            <option id='Darwin Nunez'>Darwin Nunez</option>
+            <option id='Matheus Cunha'>Matheus Cunha</option>
+            <option id='Roberto Firmino'>Roberto Firmino</option>
+            <option id='Bruno Fernandes'>Bruno Fernandes</option>
+            <option id='Julian Alvarez'>Julian Alvarez</option>
+            <option id='Thomas Muller'>Thomas Muller</option>
+            <option id='Arnaut Danjuma'>Arnaut Danjuma</option>
+            <option id='Aleksandar Mitrovic'>Aleksandar Mitrovic</option>
+            <option id='Gareth Bale'>Gareth Bale</option>
+            <option id='Kevin De Bruyne'>Kevin De Bruyne</option>
+            <option id='Leroy Sane'>Leroy Sane</option>
+            <option id='Ansu Fati'>Ansu Fati</option>
+            <option id='Eden Hazard'>Eden Hazard</option>
+            <option id='Donyell Malen'>Donyell Malen</option>
+            <option id='Sadio Mane'>Sadio Mane</option>
+            <option id='Edinson Cavani'>Edinson Cavani</option>
+            <option id='Gerard Moreno'>Gerard Moreno</option>
+            <option id='Georginio Wijnaldum'>Georginio Wijnaldum</option>
+            <option id='Bernardo Silva'>Bernardo Silva</option>
+            <option id='Andre Silva'>Andre Silva</option>
+            <option id='Mikel Oyarzabal'>Mikel Oyarzabal</option>
+            <option id='Olivier Giroud'>Olivier Giroud</option>
+            <option id='Dries Mertens'>Dries Mertens</option>
+            <option id='Paul Pogba'>Paul Pogba</option>
+            <option id='Jack Grealish'>Jack Grealish</option>
+            <option id='Son Heung-min'>Son Heung-min</option>
+            <option id='Bukayo Saka'>Bukayo Saka</option>
+            <option id='Breel Embolo'>Breel Embolo</option>
+            <option id='Philippe Coutinho'>Philippe Coutinho</option>
+            <option id='Gio Reyna'>Gio Reyna</option>
+            <option id='Michy Batshuayi'>Michy Batshuayi</option>
+            <option id='Karl Toko Ekambi'>Karl Toko Ekambi</option>
+            <option id='Marcus Rashford'>Marcus Rashford</option>
+            <option id='Ollie Watkins'>Ollie Watkins</option>
+            <option id='Kingsley Coman'>Kingsley Coman</option>
+            <option id='Daryl Dike'>Daryl Dike</option>
+            <option id='Luuk De Jong'>Luuk De Jong</option>
+            <option id='Sofiane Boufal'>Sofiane Boufal</option>
+            <option id='Marco Reus'>Marco Reus</option>
+            <option id='Youssef En-Nesyri'>Youssef En-Nesyri</option>
+            <option id='Raul Jimenez'>Raul Jimenez</option>
+            <option id='Kasper Dolberg'>Kasper Dolberg</option>
+            <option id='Christian Pulisic'>Christian Pulisic</option>
+            <option id='Luka Jovic'>Luka Jovic</option>
+            <option id='Dusan Tadic'>Dusan Tadic</option>
+            <option id='Yussuf Poulsen'>Yussuf Poulsen</option>
+            <option id='Mason Mount'>Mason Mount</option>
+            <option id='Wouter Weghorst'>Wouter Weghorst</option>
+            <option id='Krzysztof Piatek'>Krzysztof Piatek</option>
+            <option id='Andrej Kramaric'>Andrej Kramaric</option>
+            <option id='Jonathan David'>Jonathan David</option>
+            <option id='Angel Di Maria'>Angel Di Maria</option>
+            <option id='Dani Olmo'>Dani Olmo</option>
+            <option id='Keita Balde'>Keita Balde</option>
+            <option id='Martin Braithwaite'>Martin Braithwaite</option>
+            <option id='Ivan Perisic'>Ivan Perisic</option>
+            <option id='Vincent Aboubakar'>Vincent Aboubakar</option>
+            <option id='Jonas Wind'>Jonas Wind</option>
+            <option id='Ante Rebic'>Ante Rebic</option>
+            <option id='Luka Modric'>Luka Modric</option>
+            <option id='Haris Seferovic'>Haris Seferovic</option>
+            <option id='Cyle Larin'>Cyle Larin</option>
+            <option id='Takumi Minamino'>Takumi Minamino</option>
+            <option id='Achraf Hakimi'>Achraf Hakimi</option>
+            <option id='Stephen Eustaquio'>Stephen Eustaquio</option>
+            <option id='Michael Estrada'>Michael Estrada</option>
+            <option id='Alexis Vega'>Alexis Vega</option>
+            <option id='Leon Goretzka'>Leon Goretzka</option>
+            <option id='Toni Kroos'>Toni Kroos</option>
+            <option id='Hwang Hee-Chan'>Hwang Hee-Chan</option>
+            <option id='Hakim Ziyech'>Hakim Ziyech</option>
+            <option id='Sardar Azmoun'>Sardar Azmoun</option>
+            <option id='Giovanni Reyna'>Giovanni Reyna</option>
+            <option id='Andre Ayew'>Andre Ayew</option>
+            <option id='Yuya Osako'>Yuya Osako</option>
+            <option id='Timothy Weah'>Timothy Weah</option>
+            <option id='Christian Eriksen'>Christian Eriksen</option>
+            <option id='Jordan Ayew'>Jordan Ayew</option>
+            <option id='Hirving Lozano'>Hirving Lozano</option>
+            <option id='Wahbi Khazri'>Wahbi Khazri</option>
+            <option id='Mehdi Taremi'>Mehdi Taremi</option>
+            <option id='Enner Valencia'>Enner Valencia</option>
+            <option id='Paul Arriola'>Paul Arriola</option>
+            <option id='Xherdan Shaqiri'>Xherdan Shaqiri</option>
+            <option id='Mario Gavranovic'>Mario Gavranovic</option>
+            <option id='Gyasi Zardes'>Gyasi Zardes</option>
+            <option id='Ismaila Sarr'>Ismaila Sarr</option>
+            <option id='Kyogo Furuhashi'>Kyogo Furuhashi</option>
+            <option id='Almoez Ali'>Almoez Ali</option>
+            <option id='Kamaldeen Sulemana'>Kamaldeen Sulemana</option>
+            <option id='Karim Ansarifard'>Karim Ansarifard</option>
+            <option id='Akram Afif'>Akram Afif</option>
+            <option id='Saleh Al-Shehri'>Saleh Al-Shehri</option>
+            <option id='Seifeddine Jaziri'>Seifeddine Jaziri</option>
+            <option id='Thomas Partey'>Thomas Partey</option>
+            <option id='Alphonso Davies'>Alphonso Davies</option>
+            <option id='Salem Al-Dawsari'>Salem Al-Dawsari</option>
+            <option id='Jamie Maclaren'>Jamie Maclaren</option>
+            <option id='Famara Diedhiou'>Famara Diedhiou</option>
+            <option id='Junior Hoilett'>Junior Hoilett</option>
+        </select>
+        <input class="button3" type="submit" value="Indienen">
+    </form>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block header %}
+    <a href="/">Home</a>
+    <a href="/voorspellingen">Voorspellingen</a>
+    <a class="active" href="/stand">Stand</a>
+    <a href="/volgende">Volgende</a>
+    <a href="/login">Log in</a>
+{% endblock %}
+
+{% block main %}
+    <p><b>Stand</b></p>
+    <table>
+        <tr>
+            <th>Naam</th>
+            <th>Winnaar</th>
+            <th>Nederland</th>
+            <th>Topscorer</th>
+            <th><i>Goed</i></th>
+            <th>Punten</th>
+            <th>Totaal</th>
+        </tr>
+        {% for row in query %}
+            {% if row["id"] == id %}
+                <tr class="selected">
+                    <td width="15%"><b>{{ row["username"] }}</b></td>
+                    <td width="5%">{{ row["winnerpoints"] }}</td>
+                    <td width="5%">{{ row["netherlandspoints"] }}</td>
+                    <td width="5%">{{ row["scorerpoints"] }}</td>
+                    <td width="5%">({{ row["valcount"] }})</td>
+                    <td width="5%">{{ row["valsum"] }}</td>
+                    <td width="5%"><b>{{ (row["valsum"] + row["scorerpoints"] + row["netherlandspoints"] + row["winnerpoints"]) }}</b></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td width="15%"><b>{{ row["username"] }}</b></td>
+                    <td width="5%">{{ row["winnerpoints"] }}</td>
+                    <td width="5%">{{ row["netherlandspoints"] }}</td>
+                    <td width="5%">{{ row["scorerpoints"] }}</td>
+                    <td width="5%">({{ row["valcount"] }})</td>
+                    <td width="5%">{{ row["valsum"] }}</td>
+                    <td width="5%"><b>{{ (row["valsum"] + row["scorerpoints"] + row["netherlandspoints"] + row["winnerpoints"]) }}</b></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+{% endblock %}

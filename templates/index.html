@@ -1,0 +1,182 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block header %}
+    <a class="active" href="/">Home</a>
+    <a href="/voorspellingen">Voorspellingen</a>
+    <a href="/stand">Stand</a>
+    <a href="/volgende">Volgende</a>
+    <a href="/login">Log in</a>
+{% endblock %}
+
+{% block main %}
+    <p><b>Matches</b></p>
+    <table>
+        <tr>
+            <th width="5%">#</th>
+            <th width="20%">Team 1</th>
+            <th width="5%">Score</th>
+            <th width="5%">-</th>
+            <th width="5%">Score</th>
+            <th width="20%">Team 2</th>
+            <th width="5%">Group</th>
+            <th width="20%">Date</th>
+            <th width="5%">Punten</th>
+        </tr>
+        {% for row in query %}
+            {% if row["score1"] == row["realscore1"] and row["score2"] == row["realscore2"] and row["realscore1"] is not none %}
+            <tr class="green">
+                {% if (row['match_id'] % 48) == 0 %}
+                    <td>48</td>
+                {% else %}
+                    <td>{{ (row["match_id"] % 48) }}</td>
+                {% endif %}
+                <td>{{ row["team1"] }}</td>
+                <td>{{ row["score1"] }}</td>
+                <td>-</td>
+                <td>{{ row["score2"] }}</td>
+                <td>{{ row["team2"] }}</td>
+                <td>{{ row["groupname"] }}</td>
+                <td>{{ row["date"] }}</td>
+                <td>3</td>
+            </tr>
+            {% elif ((row["score1"]|int) - (row["score2"]|int)) < 0 and ((row["realscore1"]|int) - (row["realscore2"]|int)) < 0 and row["realscore1"] is not none %}
+            <tr>
+                {% if (row['match_id'] % 48) == 0 %}
+                    <td>48</td>
+                {% else %}
+                    <td>{{ (row["match_id"] % 48) }}</td>
+                {% endif %}
+                <td>{{ row["team1"] }}</td>
+                <td>{{ row["score1"] }}</td>
+                <td>-</td>
+                <td>{{ row["score2"] }}</td>
+                <td>{{ row["team2"] }}</td>
+                <td>{{ row["groupname"] }}</td>
+                <td>{{ row["date"] }}</td>
+                <td>1</td>
+            </tr>
+            {% elif ((row["score1"]|int) - (row["score2"]|int)) == 0 and ((row["realscore1"]|int) - (row["realscore2"]|int)) == 0 and row["realscore1"] is not none %}
+            <tr>
+                {% if (row['match_id'] % 48) == 0 %}
+                    <td>48</td>
+                {% else %}
+                    <td>{{ (row["match_id"] % 48) }}</td>
+                {% endif %}
+                <td>{{ row["team1"] }}</td>
+                <td>{{ row["score1"] }}</td>
+                <td>-</td>
+                <td>{{ row["score2"] }}</td>
+                <td>{{ row["team2"] }}</td>
+                <td>{{ row["groupname"] }}</td>
+                <td>{{ row["date"] }}</td>
+                <td>1</td>
+            </tr>
+            {% elif ((row["score1"]|int) - (row["score2"]|int)) > 0 and ((row["realscore1"]|int) - (row["realscore2"]|int)) > 0 and row["realscore1"] is not none %}
+            <tr>
+                {% if (row['match_id'] % 48) == 0 %}
+                    <td>48</td>
+                {% else %}
+                    <td>{{ (row["match_id"] % 48) }}</td>
+                {% endif %}
+                <td>{{ row["team1"] }}</td>
+                <td>{{ row["score1"] }}</td>
+                <td>-</td>
+                <td>{{ row["score2"] }}</td>
+                <td>{{ row["team2"] }}</td>
+                <td>{{ row["groupname"] }}</td>
+                <td>{{ row["date"] }}</td>
+                <td>1</td>
+            </tr>
+            {% else %}
+            <tr>
+                {% if (row['match_id'] % 48) == 0 %}
+                    <td>48</td>
+                {% else %}
+                    <td>{{ (row["match_id"] % 48) }}</td>
+                {% endif %}
+                <td>{{ row["team1"] }}</td>
+                <td>{{ row["score1"] }}</td>
+                <td>-</td>
+                <td>{{ row["score2"] }}</td>
+                <td>{{ row["team2"] }}</td>
+                <td>{{ row["groupname"] }}</td>
+                <td>{{ row["date"] }}</td>
+                <td>-</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        {% for row in query2 %}
+        <tr>
+            <td></td>
+            <td><b>Winnaar:</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><b><i><p class="uppercasel">{{ row["winner"] }}</p></i></b></td>
+            {% for row in query3 %}
+            <td>{{ row["winnerpoints"] }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        {% for row in query2 %}
+        <tr>
+            <td></td>
+            <td><b>Nederland:</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><b><i><p class="uppercasel">{{ row["fase"] }}</p></i></b></td>
+            {% for row in query3 %}
+            <td>{{ row["netherlandspoints"] }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        {% for row in query2 %}
+        <tr>
+            <td></td>
+            <td><b>Topscorer:</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><b><i><p class="uppercasel">{{ row["scorer"] }}</p></i></b></td>
+            {% for row in query3 %}
+            <td>{{ row["scorerpoints"] }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+            <td><p class="uppercasel"><b>Totaal:</b></p></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            {% for row in query3 %}
+            <td><b>{{ (row["valsum"] + row["scorerpoints"]) }}</b></td>
+            {% endfor %}
+        </tr>
+    </table>
+{% endblock %}

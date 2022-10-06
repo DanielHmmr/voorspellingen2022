@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block header %}
+    <a href="/">Home</a>
+    <a href="/voorspellingen">Voorspellingen</a>
+    <a href="/stand">Stand</a>
+    <a class="active" href="/volgende">Volgende</a>
+    <a href="/login">Log in</a>
+{% endblock %}
+
+{% block main %}
+    <p><b>Volgende wedstrijden</b></p>
+    <br>
+    <form action="/volgende" method="post">
+        <select name="dateselector" id="dateselector">
+            <option value="none" selected="selected" disabled>Selecteer datum</option>
+            <option value="20 november">20 november</option>
+            <option value="21 november">21 november</option>
+            <option value="22 november">22 november</option>
+            <option value="23 november">23 november</option>
+            <option value="24 november">24 november</option>
+            <option value="25 november">25 november</option>
+            <option value="26 november">26 november</option>
+            <option value="27 november">27 november</option>
+            <option value="28 november">28 november</option>
+            <option value="29 november">29 november</option>
+            <option value="30 november">30 november</option>
+            <option value="1 december">1 december</option>
+            <option value="2 december">2 december</option>
+            <option value="3 december" disabled>3 december</option>
+            <option value="4 december" disabled>4 december</option>
+            <option value="5 december" disabled>5 december</option>
+            <option value="6 december" disabled>6 december</option>
+            <option value="9 december" disabled>9 december</option>
+            <option value="10 december" disabled>10 december</option>
+            <option value="13 december" disabled>13 december</option>
+            <option value="14 december" disabled>14 december</option>
+            <option value="17 december" disabled>17 december</option>
+            <option value="18 december" disabled>18 december</option>
+            <option value="19 december" disabled>19 december</option>
+        </select>
+        <input class="button3" type="submit" value="Indienen">
+    </form>
+    <br>
+    <table>
+        <tr>
+            <th width="20%">Naam</th>
+            <th width="20%">Team</th>
+            <th width="5%">Score</th>
+            <th width="5%">-</th>
+            <th width="5%">Score</th>
+            <th width="20%">Team</th>
+            <th width="20%">Date</th>
+        </tr>
+        {% for row in query %}
+        <tr>
+            <td>{{ row["username"] }}</td>
+            <td>{{ row["team1"] }}</td>
+            <td>{{ row["score1"] }}</td>
+            <td>-</td>
+            <td>{{ row["score2"] }}</td>
+            <td>{{ row["team2"] }}</td>
+            <td>{{ row["date"] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
